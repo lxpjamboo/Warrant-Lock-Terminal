@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "LXP Warrant-Lock Protocol"
+version = "1.0.0"
+id = "artifacts/lxp-warrant-lock"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24278
+
+[services.development]
+run = "pnpm --filter @workspace/lxp-warrant-lock run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/lxp-warrant-lock", "run", "build" ]
+publicDir = "artifacts/lxp-warrant-lock/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24278"
+BASE_PATH = "/"
